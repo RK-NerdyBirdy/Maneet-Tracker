@@ -9,8 +9,9 @@ import CornerAvatar from './CornerAvatar';
 import InteractiveTerminal from './InteractiveTerminal';
 import ArchiveOverlay from './ArchiveOverlay';
 import profileImage from '../assets/images/pfp.png';
+import resumeUrl from '@/imports/Resume__4_.pdf';
 
-const RESUME_URL = '/resume.pdf';
+const RESUME_URL = resumeUrl;
 
 const PANELS = ['Overview','Awards', 'Projects', 'Skills', 'Comm Link'] as const;
 type Panel = typeof PANELS[number];

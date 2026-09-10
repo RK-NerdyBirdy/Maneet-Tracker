@@ -55,12 +55,13 @@
   height: 60px !important;
   flex-shrink: 0 !important;
 
-  background-image: url('/SpiderMan_HeadTurn.png') !important;
+  /* background-image set inline in CornerAvatar.tsx via the Vite-imported
+     @/imports/SpiderMan_HeadTurn.png so it survives subpath deploys */
   background-size: 2812px 60px !important;
   background-position: 0px 0px;
   background-repeat: no-repeat !important;
   image-rendering: pixelated !important;
-  
+
   /* Exactly 76 frames */
   animation: head-turn 5s steps(76) infinite !important;
   
@@ -100,9 +101,10 @@
 /* Hanging sprite — native 82×124 frame window scaled down via transform,
    same frame-exact technique as .head-turn-sprite (see above). */
 .spidey-sprite {
+  display: block;
   width: 82px;
   height: 124px;
-  background-repeat: repeat;
+  background-repeat: no-repeat;
   background-size: auto 100%;
   image-rendering: pixelated;
   animation: animate-spidey 3s steps(77) infinite;

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
+import resumeUrl from '@/imports/Resume__4_.pdf';
 
-const RESUME_URL = '/resume.pdf';
+const RESUME_URL = resumeUrl;
 
 type Line = { type: 'input' | 'output'; text: string };
 
