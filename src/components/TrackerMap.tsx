@@ -210,7 +210,7 @@ function TravelingUnit() {
         {/* Cyan acquisition ring */}
         <circle r={10} fill="#00F2F2" fillOpacity={0.25} className="animate-ping" />
         {/* Spidey logo — fixed 16×16 screen pixels */}
-        <image href="/spideyIcon.png" width={16} height={16} x={-8} y={-8} preserveAspectRatio="xMidYMid meet" />
+        <image href="./assets/spideyIcon.png" width={16} height={16} x={-8} y={-8} preserveAspectRatio="xMidYMid meet" />
         {/* Crosshair brackets + ticks — attached to the logo, one unit */}
         <path
           d="M -15 0 L -11 0 M 15 0 L 11 0 M 0 -15 L 0 -11 M 0 15 L 0 11"

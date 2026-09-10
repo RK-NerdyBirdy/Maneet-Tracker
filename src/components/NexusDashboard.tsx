@@ -629,7 +629,12 @@ function CommLinkPanel() {
       await emailjs.send(
         SERVICE_ID,
         TEMPLATE_ID,
-        { callsign: form.callsign, freq: form.freq, message: form.msg },
+        { 
+          callsign: form.callsign, 
+          freq: form.freq, 
+          message: form.msg,
+          'g-recaptcha-response': captchaToken // 👈 THIS IS THE FIX
+        },
         PUBLIC_KEY,
       );
       setStatus('success');
@@ -1019,7 +1024,7 @@ export default function NexusDashboard({ time }: { time: string }) {
                     }}
                   >
                     <img 
-                      src="images/pfp.png" // Replace with your actual image path
+                      src="./assets/images/pfp.png" // Replace with your actual image path
                       alt="Operative ID" 
                       className="w-full h-full object-cover"
                       style={{ imageRendering: 'pixelated' }} // Kept your pixelated styling here
