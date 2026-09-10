@@ -1,6 +1,10 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
-import containerImg from '@/imports/SpiderMan_Container.png';
 import { audioEngine } from '@/audio';
+
+// Base badge (the "container" holding Spidey) — served from public/ so Vite
+// copies it verbatim, never hashed. The head-turn sprite layers on top of it.
+// BASE_URL keeps the path correct under subpath deploys.
+const CONTAINER_URL = `${import.meta.env.BASE_URL}SpiderMan_Container.png`;
 
 // Spidey-style quips tied to the profile behind this portfolio
 const quotes = [
@@ -101,7 +105,7 @@ export default function CornerAvatar({ className = 'absolute -bottom-2 -left-2 z
         style={{
           width: 48,
           height: 48,
-          backgroundImage: `url(${containerImg as string})`,
+          backgroundImage: `url(${CONTAINER_URL})`,
           backgroundSize: '100% 100%',
           backgroundRepeat: 'no-repeat',
           imageRendering: 'pixelated',
