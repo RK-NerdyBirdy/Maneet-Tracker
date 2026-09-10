@@ -8,7 +8,7 @@
 // CSS classes: .spidey-hang / .spidey-webline / .spidey-sprite (src/index.css).
 
 import type { CSSProperties, MouseEventHandler } from 'react';
-import spiderWeb from '@/imports/SpiderMan_HeadTurn.png';
+import spiderWeb from '@/imports/SpiderMan_web.png';
 
 interface Props {
   className?: string;
