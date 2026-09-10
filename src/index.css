@@ -55,7 +55,7 @@
   height: 60px !important;
   flex-shrink: 0 !important;
 
-  background-image: url('/SpiderMan_HeadTurn.png') !important;
+  background-image: url('./assets/SpiderMan_HeadTurn.png') !important;
   background-size: 2812px 60px !important;
   background-position: 0px 0px;
   background-repeat: no-repeat !important;

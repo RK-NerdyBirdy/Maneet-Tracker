@@ -144,3 +144,19 @@
 *.stl                filter=lfs diff=lfs merge=lfs -text
 *.nc                 filter=lfs diff=lfs merge=lfs -text
 *.mat                filter=lfs diff=lfs merge=lfs -text
+
+# ---------------------------------------------------------------------------
+# Vite source assets — NEVER LFS
+# ---------------------------------------------------------------------------
+# Files imported by src code (src/audio.ts, src/index.css, components) are read
+# as raw bytes during `vite build`. If these are LFS pointers in the Vercel
+# checkout, the build silently embeds ~130-byte pointer text instead of the
+# asset. They are all small (<200 KB), so LFS adds nothing here — store real
+# bytes in git. src/imports/** must match for the same reason.
+src/assets/**        -filter -diff -merge
+src/imports/**       -filter -diff -merge
+# Everything served from public/ is small site content (images, certificates,
+# audio — all < 1 MB). LFS pointers here meant Vercel served pointer text
+# instead of the real files.
+public/**            -filter -diff -merge
+

@@ -8,6 +8,7 @@ import Folder from './Folder';
 import CornerAvatar from './CornerAvatar';
 import InteractiveTerminal from './InteractiveTerminal';
 import ArchiveOverlay from './ArchiveOverlay';
+import resumeUrl from '../assets/resume.pdf';
 
 const PANELS = ['Overview','Awards', 'Projects', 'Skills', 'Comm Link'] as const;
 type Panel = typeof PANELS[number];
@@ -1123,7 +1124,7 @@ export default function NexusDashboard({ time }: { time: string }) {
                 {/* Resume download button */}
                 <div className="shrink-0 pt-3">
                   <a
-                    href="/resume.pdf"
+                    href={resumeUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full p-3 text-center border-2 border-[#00F2F2] text-[#00F2F2] text-sm md:text-base whitespace-nowrap bg-[#00F2F2]/10 hover:bg-[#00F2F2] hover:text-[#0B1B3C] shadow-[0_0_10px_rgba(0,242,242,0.5)] transition-all uppercase font-bold animate-pulse block"
