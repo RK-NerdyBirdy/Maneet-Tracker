@@ -94,7 +94,7 @@ function figmaSiteConfiguration(config: FigmaSiteConfiguration): Plugin {
 
   const title = config.title ?? "Maneet Gupta :)"
   const description = config.description ?? ''
-  const favicon = config.icons?.icon ?? ''
+  const favicon = config.icons?.icon ?? 'spideyIcon.png'
   const socialImage = config.openGraph?.image ?? ''
   const language = sanitizeHtmlValue(config.language) || 'en'
   const googleAnalyticsId = sanitizeHtmlValue(config.analytics?.googleAnalyticsId)
