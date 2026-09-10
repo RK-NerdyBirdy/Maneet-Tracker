@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-import resumeUrl from '@/imports/Resume__4_.pdf';
 
-const RESUME_URL = resumeUrl;
+// Served from public/resume.pdf so Vite copies it verbatim — no content hash.
+// BASE_URL keeps the path correct under subpath deploys (vite.config.ts sets
+// base to FIGMA_PUBLIC_URL in Figma Make previews).
+const RESUME_URL = `${import.meta.env.BASE_URL}resume.pdf`;
 
 type Line = { type: 'input' | 'output'; text: string };
 

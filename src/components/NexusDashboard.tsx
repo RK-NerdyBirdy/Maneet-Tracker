@@ -9,9 +9,11 @@ import CornerAvatar from './CornerAvatar';
 import InteractiveTerminal from './InteractiveTerminal';
 import ArchiveOverlay from './ArchiveOverlay';
 import profileImage from '../assets/images/pfp.png';
-import resumeUrl from '@/imports/Resume__4_.pdf';
 
-const RESUME_URL = resumeUrl;
+// Served from public/resume.pdf so Vite copies it verbatim — no content hash.
+// BASE_URL keeps the path correct under subpath deploys (vite.config.ts sets
+// base to FIGMA_PUBLIC_URL in Figma Make previews).
+const RESUME_URL = `${import.meta.env.BASE_URL}resume.pdf`;
 
 const PANELS = ['Overview','Awards', 'Projects', 'Skills', 'Comm Link'] as const;
 type Panel = typeof PANELS[number];
