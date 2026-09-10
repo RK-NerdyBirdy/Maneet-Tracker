@@ -1,5 +1,8 @@
 // Global singleton — one instance, no duplicates no matter how many imports.
-import jingle from '@/imports/spidey_jingle.mp3';
+// The jingle is served as a static asset from public/ so Vite copies it to
+// dist/spidey_jingle.mp3 verbatim — no content hash. BASE_URL keeps the path
+// correct under subpath deploys (vite.config.ts sets base to FIGMA_PUBLIC_URL).
+const JINGLE_URL = `${import.meta.env.BASE_URL}spidey_jingle.mp3`;
 
 class AudioEngine {
   private track: HTMLAudioElement | null = null;
@@ -7,7 +10,7 @@ class AudioEngine {
 
   private init() {
     if (this.track) return;
-    this.track = new Audio(jingle);
+    this.track = new Audio(JINGLE_URL);
     this.track.preload = 'auto';
     this.track.loop = false; // plays once through per trigger
     this.track.volume = 0;
