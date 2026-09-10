@@ -1,0 +1,241 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap');
+@import 'tailwindcss';
+
+@keyframes crt-off {
+  0%   { transform: scaleY(1) scaleX(1);       opacity: 1; filter: brightness(1); }
+  35%  { transform: scaleY(0.05) scaleX(1);    opacity: 1; filter: brightness(5); }
+  55%  { transform: scaleY(0.05) scaleX(0.06); opacity: 1; filter: brightness(8); }
+  100% { transform: scaleY(0) scaleX(0);       opacity: 0; }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(0,242,242,0.3), 0 0 0 2px rgba(0,242,242,0.5); }
+  50%       { box-shadow: 0 0 28px rgba(0,242,242,0.75), 0 0 0 2px rgba(0,242,242,1), inset 0 0 12px rgba(0,242,242,0.12); }
+}
+
+/* Sprite sheets — keyframes shift by the FULL sheet width so each steps(N)
+   step lands exactly on a frame boundary (N frames → N steps of one frame).
+   background-repeat: repeat makes the final step wrap back to frame 0 for a
+   seamless loop. Pixel keyframes, never percentages: % positions interpolate
+   to (container − image) which does NOT divide evenly into frames. */
+
+/* HangingSpidey (landing) — SpiderMan_web.png: 6314×124 px, 77 frames × 82 px */
+@keyframes animate-spidey {
+  from { background-position: 0 0; }
+  to   { background-position: -6314px 0; }
+}
+
+/* Landing page: Spidey drops in from the ceiling on boot */
+@keyframes slideDown {
+  0%   { transform: translateY(-100vh); }
+  100% { transform: translateY(0); }
+}
+
+/* Sprite bounce for click easter egg */
+@keyframes spidey-bounce {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.18); }
+  100% { transform: scale(1); }
+}
+
+.spidey-bounce {
+  animation: spidey-bounce 0.18s ease-out forwards;
+}
+
+/* CornerAvatar head-turn — integer-locked sprite math, zero transforms.
+   The 5624×119 sheet (74 frames × 76px) is downsampled exactly 2×: every
+   frame renders 38px wide, the sheet 2812px (74 × 38), and the keyframe
+   spans the full 2812px so steps(74) moves exactly −38px per step — pure
+   integers all the way down, no sub-pixel drift from CSS scaling. */
+.head-turn-sprite {
+  /* Exactly 37px wide per the official snippet */
+  width: 37px !important;
+  height: 60px !important;
+  flex-shrink: 0 !important;
+
+  background-image: url('/SpiderMan_HeadTurn.png') !important;
+  background-size: 2812px 60px !important;
+  background-position: 0px 0px;
+  background-repeat: no-repeat !important;
+  image-rendering: pixelated !important;
+  
+  /* Exactly 76 frames */
+  animation: head-turn 5s steps(76) infinite !important;
+  
+  transform: none !important;
+  position: relative !important;
+  z-index: 9999 !important;
+}
+
+@keyframes head-turn {
+  0% { background-position: 0px 0px; }
+  100% { background-position: -2812px 0px; }
+}
+
+/* HangingSpidey — anchor pinned to the top edge of the fixed boot screen;
+   the web line + sprite slide down together on boot (slideDown keyframes). */
+.spidey-hang {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Web line — runs seamlessly from the top of the screen down to the sprite
+   window (each sprite frame already contains its own strand, so the CSS line
+   just has to reach the top edge of the first frame). */
+.spidey-webline {
+  width: 2px;
+  height: 36vh;
+  background: linear-gradient(to bottom, rgba(232, 240, 254, 0.95), rgba(232, 240, 254, 0.7));
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.25);
+}
+
+/* Hanging sprite — native 82×124 frame window scaled down via transform,
+   same frame-exact technique as .head-turn-sprite (see above). */
+.spidey-sprite {
+  width: 82px;
+  height: 124px;
+  background-image: url('/images/preloader/SpiderMan_web.png');
+  background-repeat: repeat;
+  background-size: auto 100%;
+  image-rendering: pixelated;
+  animation: animate-spidey 3s steps(77) infinite;
+  transform: scale(0.6);
+  transform-origin: top center;
+}
+
+
+@theme inline {
+  --color-bezel: #00F2F2;
+  --color-screen: #0B1B3C;
+  --color-highlight: #1E3A8A;
+  --color-detail: #8BF0F0;
+  
+  --font-press-start: "Press Start 2P", monospace;
+  --font-vt323: "VT323", monospace;
+  --font-jetbrains: "JetBrains Mono", ui-monospace, monospace;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+@layer utilities {
+  .crt-off {
+    animation: crt-off 0.65s ease-in forwards;
+  }
+
+  /* ── Pure-CSS starfield (dense) ────────────────────────────────────────────
+     Static stars via tiled radial-gradient patterns — zero JS, zero canvas,
+     composited once by the GPU, and tiles to any viewport size.
+     ::before — dense layer: 14 small 1px stars per 220px tile, white + cyan
+                (~600 stars visible on a 1920×1080 viewport)
+     ::after  — sparse layer: 7 bright 2px stars per 520px tile
+                (~56 larger stars on a 1920×1080 viewport)                    */
+
+  .starfield::before,
+  .starfield::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-repeat: repeat;
+  }
+
+  .starfield::before {
+    background-image:
+      radial-gradient(1px 1px at 18px 44px, rgba(0, 242, 242, 0.55) 50%, transparent 50%),
+      radial-gradient(1px 1px at 67px 12px, rgba(255, 255, 255, 0.75) 50%, transparent 50%),
+      radial-gradient(1px 1px at 123px 89px, rgba(0, 242, 242, 0.65) 50%, transparent 50%),
+      radial-gradient(1px 1px at 176px 31px, rgba(255, 255, 255, 0.45) 50%, transparent 50%),
+      radial-gradient(1px 1px at 34px 132px, rgba(255, 255, 255, 0.6) 50%, transparent 50%),
+      radial-gradient(1px 1px at 95px 167px, rgba(0, 242, 242, 0.5) 50%, transparent 50%),
+      radial-gradient(1px 1px at 152px 118px, rgba(255, 255, 255, 0.8) 50%, transparent 50%),
+      radial-gradient(1px 1px at 204px 72px, rgba(0, 242, 242, 0.4) 50%, transparent 50%),
+      radial-gradient(1px 1px at 11px 196px, rgba(0, 242, 242, 0.55) 50%, transparent 50%),
+      radial-gradient(1px 1px at 58px 88px, rgba(255, 255, 255, 0.35) 50%, transparent 50%),
+      radial-gradient(1px 1px at 111px 201px, rgba(255, 255, 255, 0.65) 50%, transparent 50%),
+      radial-gradient(1px 1px at 168px 164px, rgba(0, 242, 242, 0.75) 50%, transparent 50%),
+      radial-gradient(1px 1px at 190px 143px, rgba(255, 255, 255, 0.4) 50%, transparent 50%),
+      radial-gradient(1px 1px at 82px 38px, rgba(0, 242, 242, 0.3) 50%, transparent 50%);
+    background-size: 220px 220px;
+  }
+
+  .starfield::after {
+    background-image:
+      radial-gradient(2px 2px at 140px 90px, rgba(0, 242, 242, 0.9) 50%, transparent 50%),
+      radial-gradient(2px 2px at 380px 210px, rgba(255, 255, 255, 0.85) 50%, transparent 50%),
+      radial-gradient(2px 2px at 240px 330px, rgba(0, 242, 242, 0.75) 50%, transparent 50%),
+      radial-gradient(2px 2px at 450px 60px, rgba(255, 255, 255, 0.6) 50%, transparent 50%),
+      radial-gradient(2px 2px at 90px 410px, rgba(0, 242, 242, 0.7) 50%, transparent 50%),
+      radial-gradient(2px 2px at 310px 460px, rgba(255, 255, 255, 0.85) 50%, transparent 50%),
+      radial-gradient(2px 2px at 480px 300px, rgba(0, 242, 242, 0.5) 50%, transparent 50%);
+    background-size: 520px 520px;
+  }
+
+  /* Soft nebula glow sitting above the stars, replaces the old galaxy gradient */
+  .starfield-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 40%, rgba(11, 27, 60, 0.55) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .glow-btn {
+    animation: glow-pulse 2s ease-in-out infinite;
+  }
+
+  .pixel-grid {
+    background-image: 
+      linear-gradient(to right, rgba(0, 242, 242, 0.15) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 242, 242, 0.15) 1px, transparent 1px);
+    background-size: 24px 24px;
+    background-position: center;
+  }
+  
+  .scanline {
+    background: linear-gradient(
+      to bottom,
+      rgba(255,255,255,0),
+      rgba(255,255,255,0) 50%,
+      rgba(0, 0, 0, 0.2) 50%,
+      rgba(0, 0, 0, 0.2)
+    );
+    background-size: 100% 4px;
+  }
+  
+  .text-shadow-cyan {
+    text-shadow: 0 0 5px var(--color-detail), 0 0 10px var(--color-detail);
+  }
+
+  /* Hide scrollbar track while keeping scroll behaviour (for nav tabs on mobile) */
+  .hide-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+body {
+  background-color: #050a16;
+  color: var(--color-detail);
+  /* Clean monospace for all body text — retro Press Start 2P is reserved
+     for the dashboard title, FIELD_LOG header, and terminal header only. */
+  font-family: var(--font-jetbrains);
+}
+
+/* Hide the native cursor on fine (mouse) pointers — the custom TargetCursor
+   overlay takes over. Touch/coarse devices keep their native cursor. */
+@media (pointer: fine) {
+  *,
+  *::before,
+  *::after {
+    cursor: none !important;
+  }
+}
