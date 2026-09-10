@@ -1,0 +1,10 @@
+{
+  "description": "Create stunning one-page portfolio websites with a retro aesthetic, featuring customizable layouts and a vibrant color palette for creative professionals.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
