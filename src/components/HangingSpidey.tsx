@@ -8,7 +8,11 @@
 // CSS classes: .spidey-hang / .spidey-webline / .spidey-sprite (src/index.css).
 
 import type { CSSProperties, MouseEventHandler } from 'react';
-import spiderWeb from '@/imports/SpiderMan_web.png';
+
+// Served from public/images/preloader/ so Vite never hashes or renames it.
+// BASE_URL keeps the path correct under subpath deploys (vite.config.ts sets
+// base to FIGMA_PUBLIC_URL in Figma Make previews); a bare '/...' would 404.
+const SPIDER_WEB_URL = `${import.meta.env.BASE_URL}images/preloader/SpiderMan_web.png`;
 
 interface Props {
   className?: string;
@@ -24,7 +28,7 @@ export default function HangingSpidey({ className = '', style, onClick }: Props)
       {/* Spider-Man — native-px frame window, scaled down via transform */}
       <div
         className="spidey-sprite"
-        style={{ backgroundImage: `url(${spiderWeb})` }}
+        style={{ backgroundImage: `url(${SPIDER_WEB_URL})` }}
       />
     </div>
   );

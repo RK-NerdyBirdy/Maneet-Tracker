@@ -41,7 +41,7 @@ function OverviewPanel() {
         'Built backend for HEXATHON 26, one of the biggest designathons used by 300+ participants',
       ],
       tags: ['Python', 'Backend (FastAPI, Django, Azure functions)'],
-      certificate: '/certificates/gdg-vit.pdf',
+      certificate: '/certificates/GDG.pdf',
 
     },
     {
@@ -55,7 +55,7 @@ function OverviewPanel() {
         'Engineered a robust biometric attendance system leveraging FaceNet and ResNet architectures',
       ],
       tags: ['Python', 'YOLOv11', 'AWS', 'FaceNet', 'ResNet'],
-      certificate: '/certificates/kalkifi-internship.pdf',
+      certificate: '/certificates/kalki.pdf',
     },
 
   ];

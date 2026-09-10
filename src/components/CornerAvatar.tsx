@@ -1,6 +1,5 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import containerImg from '@/imports/SpiderMan_Container.png';
-import headTurnImg from '@/imports/SpiderMan_HeadTurn.png';
 import { audioEngine } from '@/audio';
 
 // Spidey-style quips tied to the profile behind this portfolio
@@ -116,7 +115,7 @@ export default function CornerAvatar({ className = 'absolute -bottom-2 -left-2 z
             top: -6,
             left: 5,
             pointerEvents: 'none',
-            backgroundImage: `url(${headTurnImg as string})`,
+            backgroundImage: `url(${import.meta.env.BASE_URL}SpiderMan_HeadTurn.png)`,
           }}
         />
       </div>
