@@ -5,12 +5,12 @@ import CircularGallery from './CircularGallery';
 // keys off `items`, so an inline array would tear down and rebuild the WebGL
 // scene on every parent re-render (App re-renders every second for the clock).
 const ARCHIVE_ITEMS = [
-  { image: 'public/images/scroll/Dev261.jpeg', text: 'DevJams\'26' },
-  { image: 'public/images/scroll/Dev262.jpeg', text: 'DevJams\'26' },
-  { image: 'public/images/scroll/Hex1.JPG', text: 'Hexathon\'26' },
-  { image: 'public/images/scroll/Hex2.JPG', text: 'Hexathon\'26' },
-  { image: 'public/images/scroll/Wehack.jpeg', text: 'WE hack 5.0' },
-  { image: 'public/images/scroll/yantra.jpeg', text: 'Yantra\'26' },
+  { image: new URL('../assets/images/scroll/Dev261.jpeg', import.meta.url).href, text: 'DevJams\'26' },
+  { image: new URL('../assets/images/scroll/Dev262.jpeg', import.meta.url).href, text: 'DevJams\'26' },
+  { image: new URL('../assets/images/scroll/Hex1.JPG', import.meta.url).href, text: 'Hexathon\'26' },
+  { image: new URL('../assets/images/scroll/Hex2.JPG', import.meta.url).href, text: 'Hexathon\'26' },
+  { image: new URL('../assets/images/scroll/Wehack.jpeg', import.meta.url).href, text: 'WE hack 5.0' },
+  { image: new URL('../assets/images/scroll/yantra.jpeg', import.meta.url).href, text: 'Yantra\'26' },
 ];
 
 interface ArchiveOverlayProps {

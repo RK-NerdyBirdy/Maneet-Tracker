@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import resumeUrl from '../assets/resume.pdf';
+
+const RESUME_URL = '/resume.pdf';
 
 type Line = { type: 'input' | 'output'; text: string };
 
@@ -45,7 +46,7 @@ export default function InteractiveTerminal() {
     let output: string;
     if (cmd === '/resume') {
       output = 'Extracting file...';
-      window.open(resumeUrl, '_blank', 'noopener,noreferrer');
+      window.open(RESUME_URL, '_blank', 'noopener,noreferrer');
     } else if (COMMANDS[cmd]) {
       output = COMMANDS[cmd];
     } else {
