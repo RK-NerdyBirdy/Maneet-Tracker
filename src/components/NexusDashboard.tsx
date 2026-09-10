@@ -1018,7 +1018,7 @@ export default function NexusDashboard({ time }: { time: string }) {
                     }}
                   >
                     <img 
-                      src="/public/images/pfp.png" // Replace with your actual image path
+                      src="images/pfp.png" // Replace with your actual image path
                       alt="Operative ID" 
                       className="w-full h-full object-cover"
                       style={{ imageRendering: 'pixelated' }} // Kept your pixelated styling here
