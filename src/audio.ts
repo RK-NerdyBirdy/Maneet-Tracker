@@ -7,7 +7,8 @@ class AudioEngine {
 
   private init() {
     if (this.track) return;
-    this.track = new Audio(jingle as string);
+    this.track = new Audio(jingle);
+    this.track.preload = 'auto';
     this.track.loop = false; // plays once through per trigger
     this.track.volume = 0;
   }

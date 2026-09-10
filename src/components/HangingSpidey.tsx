@@ -8,6 +8,7 @@
 // CSS classes: .spidey-hang / .spidey-webline / .spidey-sprite (src/index.css).
 
 import type { CSSProperties, MouseEventHandler } from 'react';
+import spiderWeb from '@/imports/SpiderMan_web.png';
 
 interface Props {
   className?: string;
@@ -21,7 +22,10 @@ export default function HangingSpidey({ className = '', style, onClick }: Props)
       {/* Web line — from the top of the screen down to the sprite */}
       <div className="spidey-webline" aria-hidden="true" />
       {/* Spider-Man — native-px frame window, scaled down via transform */}
-      <div className="spidey-sprite" />
+      <div
+        className="spidey-sprite"
+        style={{ backgroundImage: `url(${spiderWeb})` }}
+      />
     </div>
   );
 }
